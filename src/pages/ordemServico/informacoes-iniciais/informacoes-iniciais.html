@@ -1,0 +1,112 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Informações inciais</ion-title>
+    </ion-navbar>
+
+    <ion-fab mini top right>
+        <button ion-fab (click)="avancaCadastro(dataExecucao, horaInicial, horaFinal, medpb, medcor,
+        duplex, enderecoCorreto, novoEndereco, departamento, complemento)">
+            <ion-icon name="arrow-dropright"></ion-icon>
+        </button>
+    </ion-fab>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <!-- DATA E HORÁRIO DO ATENDIMENTO -->
+    <ion-item-divider color="light">
+        <ion-label>
+            Informações de data e horário
+        </ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+        <ion-label>Data do Atendimento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataExecucao" cancelText="Cancelar" doneText="OK"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Hora Inicial</ion-label>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="horaInicial" cancelText="Cancelar" doneText="OK"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Hora Final</ion-label>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="horaFinal" cancelText="Cancelar" doneText="OK"></ion-datetime>
+    </ion-item>
+
+    <!-- CAMERA FOTO ANTES DO ATENDIMENTO 
+
+    <br><br><br>
+    <button (click)="tiraFoto()" class="btn-tirar-foto" ion-button icon-end round [disabled]="controleCamera">
+        Foto antes do atendimento
+        <ion-icon name="camera"></ion-icon>
+        </button>
+    <img [src]="photo" *ngIf="photo" width="300" height="300">
+    <br><br><br>
+-->
+
+    <!-- CONTADORES -->
+    <ion-item-divider color="light">
+        <ion-label>
+            Informações dos contadores
+        </ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+        <ion-label>Contador PB</ion-label>
+        <ion-input type="number" id="medpb" inputmode="numeric" min="0" [(ngModel)]="medpb"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Contador COR</ion-label>
+        <ion-input type="number" id="medcor" inputmode="numeric" min="0" [(ngModel)]="medcor"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Contador Duplex</ion-label>
+        <ion-input type="number" id="duplex" inputmode="numeric" min="0" [(ngModel)]="duplex"></ion-input>
+    </ion-item>
+
+
+    <!-- ENDEREÇO DO EQUIPAMENTO -->
+    <ion-item-divider color="light">
+        <ion-label>
+            Informações do endereço do equipamento
+        </ion-label>
+    </ion-item-divider>
+
+    <ion-list text-wrap required radio-group [(ngModel)]="enderecoCorreto">
+
+        <ion-label text-wrap>O endereço do equipamento está correto?</ion-label>
+        <ion-item>
+            <ion-label>Sim</ion-label>
+            <ion-radio value="S" checked="true" (click)="esconderNovoEndereco()"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Não</ion-label>
+            <ion-radio value="N" (click)="exibirNovoEndereco()"></ion-radio>
+        </ion-item>
+
+        <ion-item required [hidden]="novoEnd">
+            <ion-label stacked>Endereço correto:</ion-label>
+            <ion-textarea type="text" [(ngModel)]="novoEndereco" placeholder="Ex.: Rua A, 15 Centro Niterói"></ion-textarea>
+        </ion-item>
+
+        <ion-item required [hidden]="novoEnd">
+            <ion-label stacked>Departamento:</ion-label>
+            <ion-input type="text" [(ngModel)]="departamento" placeholder="Ex.: Administração"></ion-input>
+        </ion-item>
+
+        <ion-item required [hidden]="novoEnd">
+            <ion-label stacked>Complemento:</ion-label>
+            <ion-input type="text" [(ngModel)]="complemento" placeholder="Ex.: Sala, portaria e andar" required></ion-input>
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>

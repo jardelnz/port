@@ -1,0 +1,34 @@
+export interface OS {
+    numos: number;
+    nomeparc: string;
+    numitem: number;
+    codserv: number;
+    endmaquina: string;
+    dhchamada: string;
+    dtprevista: string;
+    serie: string;
+    ad_departamento: string,
+    nomecontato: string;
+    descricao: string;
+    descrprod: string;
+    telefone: string;
+    ad_lat: number;
+    ad_long: number;
+    patrimonio: string;
+    ad_compapel: string;
+    nomefantasia: string;
+    ad_ultcontpb: number;
+    ad_ultcontcor: number;
+    ad_ultcontduplex: number;
+    ad_ultconttotal: number;
+    ad_softintegrado: string;
+    atrasada: string;
+    endgps: string;
+    ad_leitura: string;
+    ad_consumoestoque: string;
+    ad_preventiva: string;
+    ad_otimizacao_toner: string;
+    ad_conf_duplex: string;
+    ad_motivo_conf_duplex: string;
+    solucao: string;
+}

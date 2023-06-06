@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Monitoramento
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4>Digite a série para verificar o monitoramento:</h4>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Série</ion-label>
+      <ion-input type="text" [(ngModel)]="serie"></ion-input>
+    </ion-item>
+
+    <button ion-button block outline color="primary" (click)="retornarHistorico()">
+      Pesquisar
+    </button>
+    <!-- <ion-item *ngFor="let contadores of monitoramento">
+      <ion-label>
+        Conta: {{ contadores.EnterpriseName }}<p>
+          Fabricante: {{ contadores.BrandName }}</br>
+          Modelo: {{ contadores.PrinterModelName }}</br>
+          Contador Total: {{ contadores.LatestCounterTotal }}</br>
+          Dt. Últ. leitura: {{ contadores.LastDateTimeRead }}
+      </ion-label>
+    </ion-item> -->
+
+    <ion-card *ngFor="let contadores of monitoramento">
+      <ion-card-header>
+        <b> Conta: {{ contadores.EnterpriseName }}</b>
+      </ion-card-header>
+      <ion-card-content>
+        <p><b> Fabricante: </b>{{ contadores.BrandName }}</p>
+        <p><b> Modelo:</b> {{ contadores.PrinterModelName }}</p>
+        <p><b> Contador Total:</b> {{ contadores.LatestCounterTotal }}</p>
+        <p><b> Dt. Últ. leitura:</b> {{ contadores.LastDateTimeRead.substring(8,10)}}/{{ contadores.LastDateTimeRead.substring(5,7)}}/{{ contadores.LastDateTimeRead.substring(0,4)}} {{ contadores.LastDateTimeRead.substring(11,16)}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>

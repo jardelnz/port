@@ -1,0 +1,124 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Informações finais</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="os.salva == false || atendimento == false">
+        <!-- DATA E HORÁRIO DO ATENDIMENTO -->
+        <ion-item-divider color="light" *ngIf="!os.dataExecucao">
+            <ion-label>
+                Informações de data e horário
+            </ion-label>
+        </ion-item-divider>
+
+        <ion-item *ngIf="!os.dataExecucao">
+            <ion-label>Data do Atendimento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataExecucao" cancelText="Cancelar" doneText="OK"></ion-datetime>
+        </ion-item>
+
+        <ion-item *ngIf="!os.dataExecucao">
+            <ion-label>Hora Inicial</ion-label>
+            <ion-datetime displayFormat="HH:mm" [(ngModel)]="horaInicial" cancelText="Cancelar" doneText="OK"></ion-datetime>
+        </ion-item>
+
+        <ion-item *ngIf="!os.dataExecucao">
+            <ion-label>Hora Final</ion-label>
+            <ion-datetime displayFormat="HH:mm" [(ngModel)]="horaFinal" cancelText="Cancelar" doneText="OK"></ion-datetime>
+        </ion-item>
+    </div>
+
+    <ion-item *ngIf="os.salva == true && os.status != 14">
+        <ion-label>Subsistemas</ion-label>
+        <ion-select multiple="true" [(ngModel)]="sub" (ionBlur)="retornaCausas(sub)">
+            <ion-option *ngFor="let item of subSistemas" [value]="item.CODIGO">{{item.SUBSISTEMA}}</ion-option>
+        </ion-select>
+    </ion-item>
+
+
+    <ion-item *ngIf="os.salva == true && os.status != 14">
+        <ion-label>Causas</ion-label>
+        <ion-select multiple="true" [(ngModel)]="cau">
+            <ion-option *ngFor="let id of causas" [value]="id">{{id.SUBSISTEMA}}</ion-option>
+        </ion-select>
+        <br><br>
+    </ion-item>
+
+    <!-- INÍCIO CAMERA FOTO DEPOIS DO ATENDIMENTO 
+    <div [hidden]="controleFoto">
+        <br>
+        <button (click)="tiraFoto()" class="btn-tirar-foto" ion-button icon-end round [disabled]="controleCamera">
+            Foto depois do atendimento
+            <ion-icon name="camera"></ion-icon>
+        </button>
+        <img [src]="photo" *ngIf="photo" width="300" height="300">
+    </div>
+    -->
+
+    <div [hidden]="controleFoto">
+        <br>
+        <button (click)="fotoOS()" class="btn-tirar-foto" ion-button icon-end round [disabled]="controleFotoOs">
+            Foto da Ordem de serviço
+            <ion-icon name="camera"></ion-icon>
+        </button>
+        <img [src]="photo" *ngIf="photo" width="300" height="300">
+    </div>
+
+    <!-- FIM CAMERA FOTO DEPOIS DO ATENDIMENTO -->
+
+    <br><br><br>
+    <ion-item-divider color="light">
+        <ion-label>Dados do cliente</ion-label>
+    </ion-item-divider>
+    <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="nomeCliente" value="{{os.NOMECONTATO}}" required></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>CPF/Matrícula</ion-label>
+        <ion-input type="number" [(ngModel)]="matricula" pattern="\d*" value="{{os.AD_CPF_USU_VALIDADOR}}"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>E-mail</ion-label>
+        <ion-input type="Email" [(ngModel)]="email" value="{{os.AD_EMAIL_CONTATO}}"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Telefone</ion-label>
+        <ion-input type="number" [(ngModel)]="telefone" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label stacked>Solução:</ion-label>
+        <ion-textarea placeholder="Descreva o atendimento." [(ngModel)]="solucao" value="{{os.SOLUCAO}}" required></ion-textarea>
+    </ion-item>
+
+    <br><br><br>
+
+    <ion-buttons start text-wrap center>
+
+        <button ion-button round color="secondary" icon-start 
+        [disabled]="controleBotao" (click)="concluirSemPendencia(cau,nomeCliente,matricula,email,telefone,solucao)">
+            <ion-icon name="checkmark-circle"></ion-icon>
+            Concluir sem pendência
+        </button>
+
+        <button ion-button round class="danger" icon-start [disabled]="controleAtendimento" (click)="concluirComPendencia(cau,nomeCliente,matricula,email,telefone,
+            solucao)">
+            <ion-icon name="alert"></ion-icon>
+            Concluir com pendência
+        </button>
+
+        <button ion-button round color="dark" icon-start (click)="atendimentNaoRealizado(nomeCliente,matricula,email,telefone,
+            dataExecucao, horaInicial, horaFinal, solucao)">
+            <ion-icon name="remove-circle"></ion-icon>
+            Atendimento não realizado
+        </button>
+
+    </ion-buttons>
+
+
+</ion-content>

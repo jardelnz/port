@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Pedidos de Suprimento</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <p>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Puche para atualizar" refreshingSpinner="circles" refreshingText="Atualizando...">
+            </ion-refresher-content>
+        </ion-refresher>
+
+        <button class="btn-tirar-foto" ion-button icon-end full (click)="buscarCodigoBarras()" icon-start>
+      <ion-icon name='barcode'></ion-icon>
+      Buscar Pedido
+    </button>
+
+        <ion-searchbar placeholder="Número do pedido..." (ionInput)="atualizaAgenda($event)"></ion-searchbar>
+        <ion-card *ngFor="let pedido of agendaSuprimento">
+            <ion-card-header>
+                <b>Pedido: {{ pedido.NUNOTA }}</b>
+            </ion-card-header>
+            <ion-card-content>
+                <p><b>Cliente : </b> {{ pedido.NOMEPARC }}</p>
+                <p><b>Série : </b> {{ pedido.SERIE }}</p>
+                <p><b>Endereço : </b>{{ pedido.ENDMAQUINA }}</p>
+                <!-- <p><b>Descrição : </b> {{ pedido.DESCRICAO }}</p> -->
+            </ion-card-content>
+            <ion-col text-right>
+                <button ion-button clear small color="primary" (click)="abrirInfoPedido(pedido)" icon-start>
+          <ion-icon name='share-alt'></ion-icon>
+          Informações do Pedido
+        </button>
+            </ion-col>
+        </ion-card>
+    </p>
+
+</ion-content>

@@ -1,0 +1,14 @@
+<network-security-config>
+   <base-config cleartextTrafficPermitted="true">
+       <trust-anchors>
+           <certificates src="system" />
+       </trust-anchors>
+   </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">201.49.222.4:3000</domain>
+        <domain includeSubdomains="true">http://201.49.222.4/</domain>
+        <domain includeSubdomains="true">http://201.49.222.4:3000</domain>
+        <domain includeSubdomains="true">http://201.49.222.4:3001</domain>
+    </domain-config>
+</network-security-config>

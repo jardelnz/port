@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Agenda Futura de OS</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <p>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Puche
+        para atualizar" refreshingSpinner="circles" refreshingText="Atualizando...">
+            </ion-refresher-content>
+        </ion-refresher>
+        <ion-card *ngFor="let os of agenda">
+            <ion-card-header>
+                <b>OS: {{ os.NUMOS }}/{{ os.NUMITEM }}</b>
+            </ion-card-header>
+            <ion-card-content>
+                <p><b>Cliente : </b> {{ os.NOMEPARC }}</p>
+                <p><b>Série : </b> {{ os.SERIE }}</p>
+                <p><b>Data do agendamento : </b> {{ os.DTPREVISTA }}</p>
+                <p><b>Endereço : </b>{{ os.ENDMAQUINA }}</p>
+                <p><b>Descrição : </b> {{ os.DESCRICAO }}</p>
+                <p><b>Contato : </b> {{ os.NOMECONTATO }}</p>
+                <p><b>Telefone : </b><a href="tel:{{os.TELEFONE}}"> {{ os.TELEFONE }}</a></p>
+            </ion-card-content>
+        </ion-card>
+    </p>
+
+</ion-content>

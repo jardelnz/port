@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Meu estoque</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card *ngFor="let lista of listagem" text-wrap>
+        <ion-card-header text-wrap>
+            <h2><b>Ref. do Fornecedor:</b> {{lista.REFFORN}}</h2>
+        </ion-card-header>
+        <ion-card-content>
+            <p><b>Descrição: </b>{{ lista.DESCRPROD }}</p>
+        </ion-card-content>
+        <ion-row>
+            <ion-col>
+                <button ion-button icon-start clear small>
+                <ion-icon name="cube"></ion-icon>
+                <div>{{lista.TOTAL}} {{lista.CODVOL}}</div>
+              </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button icon-start clear small>
+                <ion-icon name="barcode"></ion-icon>
+                <div>Código: {{lista.CODPROD}}</div>
+              </button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+
+
+</ion-content>

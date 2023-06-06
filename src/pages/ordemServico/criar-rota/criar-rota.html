@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Criar Rota</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item-divider color="light" text-wrap>
+        <ion-label><b>Endereço CAC:</b> {{os.ENDGPS}}
+            <br>Com base no endereço informado pelo CAC encontramos o(s) ponto(s) abaixo:</ion-label>
+    </ion-item-divider>
+
+    <ion-card *ngFor="let end of enderecos">
+        <div id="map" class="mapa">
+            <img src="{{ getMapa(end.latitude,end.longitude) }}">
+        </div>
+
+        <ion-item>
+            <ion-icon name="pin" item-start large></ion-icon>
+            <span item-start></span>
+            <h2>{{end.streetName}}</h2>
+            <p>{{end.administrativeLevels.level2long}} - {{end.administrativeLevels.level1short}}
+            </p>
+            <p>{{end.zipcode}}</p>
+        </ion-item>
+
+        <ion-item>
+            <button ion-button icon-start clear item-end (click)="acessarRota(end.latitude,end.longitude)">
+                <ion-icon name="navigate"></ion-icon>
+                Google Maps
+            </button>
+        </ion-item>
+
+    </ion-card>
+</ion-content>

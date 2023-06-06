@@ -1,0 +1,139 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Agenda de OS</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+    <!-- ## Buscar OS -->
+    <div *ngIf="offline == false">
+        <ion-searchbar [(ngModel)]="myInput" animated="true" placeholder="Digite o número da OS"
+            (ionInput)="onInput($event)"></ion-searchbar>
+    </div>
+    <!-- ## Fim Buscar OS -->
+
+
+    <!-- ## Card para agenda on-line -->
+    <div *ngIf="agenda !== '' && offline == false && filtroAtivo == false">
+
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Puche para atualizar"
+                refreshingSpinner="circles" refreshingText="Atualizando...">
+            </ion-refresher-content>
+        </ion-refresher>
+
+        <!-- <ion-searchbar placeholder="Série do equipamento..." [showCancelButton]="shouldShowCancel" (ionInput)="atualizaAgenda($event)"></ion-searchbar> -->
+
+        <p>
+
+            <ion-card *ngFor="let os of agenda">
+
+                <ion-card-header>
+                    <b>OS: {{ os.NUMOS }}/{{ os.NUMITEM }}</b>
+                </ion-card-header>
+
+                <ion-card-content>
+                    <p><b>Empresa : </b> {{ os.NOMEFANTASIA }}</p>
+                    <p><b>Cliente : </b> {{ os.NOMEPARC }}</p>
+                    <p><b>Série : </b> {{ os.SERIE }}</p>
+                    <p *ngIf="os.AD_PATRIMONIO"><b>Patrimônio : </b> {{ os.AD_PATRIMONIO }}</p>
+                    <p><b>Data do agendamento: </b> {{ os.DTPREVISTA }}</p>
+                    <p><b>Endereço : </b>{{ os.ENDMAQUINA }}</p>
+                    <p><b>Descrição : </b> {{ os.DESCRICAO }}</p>
+                </ion-card-content>
+
+                <ion-col text-right>
+                    <button ion-button clear small color="primary" (click)="abrirInfoOS(os, offline)" icon-start>
+                        <ion-icon name='ios-open'></ion-icon>
+                        Visualizar OS
+                    </button>
+                </ion-col>
+
+            </ion-card>
+
+        </p>
+
+    </div>
+    <!-- Fim Card para agenda on-line -->
+
+
+    <!-- ## Card para Buca de OS ativada -->
+    <ion-card *ngIf="agendaFiltro && filtroAtivo == true && agendaFiltro != 1">
+
+        <ion-card-header>
+            <b>OS: {{ agendaFiltro.NUMOS }}/{{ agendaFiltro.NUMITEM }}</b>
+        </ion-card-header>
+
+        <ion-card-content>
+            <p><b>Empresa : </b> {{ agendaFiltro.NOMEFANTASIA }}</p>
+            <p><b>Cliente : </b> {{ agendaFiltro.NOMEPARC }}</p>
+            <p><b>Série : </b> {{ agendaFiltro.SERIE }}</p>
+            <p *ngIf="agendaFiltro.AD_PATRIMONIO"><b>Patrimônio : </b> {{ agendaFiltro.AD_PATRIMONIO }}</p>
+            <p><b>Data do agendamento: </b> {{ agendaFiltro.DTPREVISTA }}</p>
+            <p><b>Endereço : </b>{{ agendaFiltro.ENDMAQUINA }}</p>
+            <p><b>Descrição : </b> {{ agendaFiltro.DESCRICAO }}</p>
+        </ion-card-content>
+
+        <ion-col text-right>
+            <button ion-button clear small color="primary" (click)="abrirInfoOS(agendaFiltro, offline)" icon-start>
+                <ion-icon name='ios-open'></ion-icon>
+                Visualizar OS
+            </button>
+        </ion-col>
+    </ion-card>
+
+    <!-- ## Fim Card Busca OS ativada -->
+
+
+    <!-- ## Card para agenda local -->
+    <div *ngIf="agendaLocal !== '' && offline == true">
+
+        <ion-item>
+            <ion-badge color="danger">Off-line</ion-badge>
+        </ion-item>
+
+        <p>
+            <ion-card *ngFor="let os of agendaLocal">
+
+                <ion-card-header>
+                    <b>OS: {{ os.os.NUMOS }}/{{ os.os.NUMITEM }}</b>
+                </ion-card-header>
+
+                <ion-card-content>
+                    <p><b>Empresa : </b> {{ os.os.NOMEFANTASIA }}</p>
+                    <p><b>Cliente : </b> {{ os.os.NOMEPARC }}</p>
+                    <p><b>Série : </b> {{ os.os.SERIE }}</p>
+                    <p *ngIf="os.os.AD_PATRIMONIO"><b>Patrimônio : </b> {{ os.os.AD_PATRIMONIO }}</p>
+                    <p><b>Data do agendamento: </b> {{ os.os.DTPREVISTA }}</p>
+                    <p><b>Endereço : </b>{{ os.os.ENDMAQUINA }}</p>
+                    <p><b>Descrição : </b> {{ os.os.DESCRICAO }}</p>
+                </ion-card-content>
+
+                <ion-col text-right>
+                    <button ion-button clear small color="primary" (click)="abrirInfoOS(os.os)" icon-start>
+                        <ion-icon name='ios-open'></ion-icon>
+                        Visualizar OS
+                    </button>
+                </ion-col>
+
+            </ion-card>
+        </p>
+    </div>
+    <!-- ## Fim Card para agenda local -->
+
+
+    <!-- ## Card para agenda vazia on-line -->
+    <ion-card *ngIf="agenda == '' || (agendaLocal && agendaLocal == '') || agendaFiltro == 1">
+        <ion-card-header>
+            Nenhuma OS encontrada.
+        </ion-card-header>
+    </ion-card>
+    <!-- ## Fim Card agenda vazia on-line -->
+
+
+</ion-content>

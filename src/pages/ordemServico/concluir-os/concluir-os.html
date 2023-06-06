@@ -1,0 +1,204 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Concluir Atendimento</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label>Data do Atendimento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataExecucao"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Hora Inicial</ion-label>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="horaInicial"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Hora Final</ion-label>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="horaFinal"></ion-datetime>
+    </ion-item>
+
+    <ion-list required radio-group [(ngModel)]="enderecoCorreto">
+
+        <ion-label class="label-checkbox">O endereço do equipamento está correto?</ion-label>
+
+        <ion-item>
+            <ion-label>Sim</ion-label>
+            <ion-radio value="S" checked="true" (click)="esconderNovoEndereco()"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Não</ion-label>
+            <ion-radio value="N" (click)="exibirNovoEndereco()"></ion-radio>
+        </ion-item>
+
+        <ion-item required [hidden]="novoEnd">
+            <ion-label stacked>Endereço correto:</ion-label>
+            <ion-textarea type="text" [(ngModel)]="novoEndereco"></ion-textarea>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-item [hidden]="bloquear">
+        <ion-label>Causas da Ordem de Serviço</ion-label>
+        <ion-select [(ngModel)]="causas" multiple="true">
+            <ion-option value="AD_AVALCONFIGEQUIP">Configuração do equipamento (Driver, rede, fax)</ion-option>
+            <ion-option value="AD_AVALPECAPREMAT">Peça com defeito prematuro</ion-option>
+            <ion-option value="AD_AVALDANOUSU">Dano por mau uso</ion-option>
+            <ion-option value="AD_AVALQUALPAPEL">Má qualidade do papel</ion-option>
+            <ion-option value="AD_AVALREDEELETRICA">Rede elétrica inadequada</ion-option>
+            <ion-option value="AD_AVALDEPOSITORESID">Depósito residual cheio</ion-option>
+            <ion-option value="AD_AVALFALHAUSU">Falha operacional do usuário</ion-option>
+            <ion-option value="AD_AVALBLOQCOTA">Liberação/bloqueio de cota</ion-option>
+            <ion-option value="AD_AVALRESET">Reset de peças e suprimentos</ion-option>
+            <ion-option value="AD_AVALSUPRIDEFEITO">Suprimentos com defeito</ion-option>
+            <ion-option value="AD_AVALPECADESGASTE">Peça com desgaste</ion-option>
+            <ion-option value="AD_AVALNENHUMPROB">Nenhum problema encotrado</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Contador PB</ion-label>
+        <ion-input type="number" [(ngModel)]="medpb" value="{{os.AD_ULTCONTPB}}"> </ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Contador COR</ion-label>
+        <ion-input type="number" [(ngModel)]="medcor" value="{{os.AD_ULTCONTCOR}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Contador Duplex</ion-label>
+        <ion-input type="number" [(ngModel)]="duplex" value="{{os.AD_ULTCONTDUPLEX}}"></ion-input>
+    </ion-item>
+
+    <ion-item [hidden]="bloquear">
+        <ion-label>Status do Equipamento</ion-label>
+        <ion-select [(ngModel)]="statusEquip" okText="OK" cancelText="Cancelar" (ionChange)="desabilitarBotao(statusEquip)">
+            <ion-option value="P">Em pleno funcionamento</ion-option>
+            <ion-option value="F">Funcionamento parcial</ion-option>
+            <ion-option value="I">Equipamento inoperante</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item [hidden]="bloquear">
+        <ion-label class="label-checkbox">Realizado preventiva</ion-label>
+        <ion-checkbox [(ngModel)]="preventiva"></ion-checkbox>
+    </ion-item>
+
+    <!-- 
+    <ion-item [hidden]="bloquear">
+        <ion-label class="label-checkbox">Consumo estoque volante/residente</ion-label>
+        <ion-checkbox [(ngModel)]="consumoestoque" (click)="presentModal()"></ion-checkbox>
+    </ion-item>
+    
+
+    <ion-list required [hidden]="bloquear" radio-group [(ngModel)]="consumoestoque">
+        <ion-label class="label-checkbox">Consumo estoque volante/residente?</ion-label>
+
+        <ion-item>
+            <ion-label>Sim</ion-label>
+            <ion-radio value="S" checked="true" (click)="presentModal()"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Não</ion-label>
+            <ion-radio value="N" (click)="escondeModal()"></ion-radio>
+        </ion-item>
+
+    </ion-list>
+    -->
+
+    <ion-item>
+        <ion-label>Consumo de estoque</ion-label>
+        <ion-select [(ngModel)]="consumoestoque" multiple="true" cancelText="Cancelar" okText="OK!" text-wrap>
+            <ion-option text-wrap *ngFor="let lista of listagem">{{lista.DESCRPROD}}</ion-option>
+        </ion-select>
+    </ion-item>
+
+
+    <ion-list required radio-group [(ngModel)]="otimizarToner" [hidden]="bloquear">
+        <ion-label class="label-checkbox">Foi realizada a otimização do toner?</ion-label>
+        <ion-item>
+            <ion-label>Sim</ion-label>
+            <ion-radio value="S"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Não</ion-label>
+            <ion-radio value="N" checked="true"></ion-radio>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-list required [hidden]="exibirConfigurarDuplex" radio-group [(ngModel)]="configurarDuplex">
+
+        <ion-label class="label-checkbox">Foi realizada a configuração duplex?</ion-label>
+
+        <ion-item>
+            <ion-label>Sim</ion-label>
+            <ion-radio value="S" checked="true" (click)="esconderJustificativa()"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Não</ion-label>
+            <ion-radio value="N" (click)="exibirJustificativa()"></ion-radio>
+        </ion-item>
+
+        <ion-item required [hidden]="hideMe">
+            <ion-label>Motivo:</ion-label>
+            <ion-input type="text" [(ngModel)]="justificarOtimizacaoToner"></ion-input>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-item>
+        <ion-label stacked>Solução</ion-label>
+        <ion-textarea placeholder="Descreva o atendimento." [(ngModel)]="solucao"></ion-textarea>
+    </ion-item>
+
+    <br>
+
+    <ion-item-divider color="light">
+        <ion-label>Dados do cliente</ion-label>
+    </ion-item-divider>
+    <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="nomeCliente" value="" required></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Matrícula/CPF</ion-label>
+        <ion-input type="number" [(ngModel)]="matricula" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>E-mail</ion-label>
+        <ion-input type="Email" [(ngModel)]="email" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Telefone</ion-label>
+        <ion-input type="number" [(ngModel)]="telefone" value=""></ion-input>
+    </ion-item>
+
+    <br>
+
+    <!-- <button [disabled]="controleBotao" ion-button full color="secondary" (click)="concluirSemPendencia()">
+        Concluir Atendimento sem pendência
+    </button> -->
+
+    <button ion-button color="secondary" outline icon-start [disabled]="controleBotao" (click)="concluirSemPendencia()">
+        <ion-icon name='paw' is-active="false"></ion-icon>
+        Concluir Atendimento sem pendência
+    </button>
+
+    <button ion-button full color="danger" (click)="concluirComPendencia()">
+        Concluir Atendimento com pendência
+    </button>
+
+    <button ion-button full color="dark" (click)="atendimentNaoRealizado()">
+        Não foi possível realizar o atendimento
+    </button>
+
+</ion-content>

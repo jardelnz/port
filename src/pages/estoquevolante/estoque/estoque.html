@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Estoque</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item justify-content-center align-items-end style="height:100%">
+        <div>
+            <button ion-button large round full icon-start (click)="meuExtrato()"><ion-icon
+                    name="swap"></ion-icon>
+                Movimentações</button><br>
+
+            <button ion-button large round full icon-start (click)="exibirNunotas()"><ion-icon name="download"></ion-icon>
+                Receber itens</button><br>
+            <button ion-button large round full icon-start (click)="meuEstoque()"><ion-icon name="cube"></ion-icon>
+                Meu estoque</button>
+        </div>
+    </ion-item>
+</ion-content>

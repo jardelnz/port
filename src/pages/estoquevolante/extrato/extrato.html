@@ -1,0 +1,46 @@
+<!--
+  Generated template for the ExtratoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Extrato de movimentações</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card *ngFor="let lista of listagem" text-wrap>
+
+        <ion-item>
+            <ion-icon name="barcode" item-start large></ion-icon>
+            <h2>{{ lista.PRODUTO }}</h2>
+            <button ion-button icon-start clear item-star>
+                <ion-icon [color]="lista.COR" [name]="lista.ICONE"></ion-icon>{{lista.MOVIMENTO}}
+            </button>
+            <h2>Quantidade: {{lista.QTDNEG}}</h2>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon name="more" item-start large></ion-icon>
+            <p>Código: {{lista.CODPROD}} </p>
+            <p>R. fornecedor: {{lista.REFFON}}</p>
+            <p *ngIf="lista.NUMOS">OS: {{lista.NUMOS}} / Sub-OS: {{lista.SUB_OS}}
+            </p>
+        </ion-item>
+
+        <ion-item>
+            <button ion-button icon-start clear item-end>
+                <ion-icon name="calendar"></ion-icon>
+                {{lista.DATA}}
+            </button>
+        </ion-item>
+
+    </ion-card>
+
+</ion-content>

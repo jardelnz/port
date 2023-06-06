@@ -1,0 +1,51 @@
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Os's pendentes de envio</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <!-- ## Card para Os's pendentes -->
+    <div *ngIf="agendaLocal !== ''">
+        <ion-card *ngFor="let os of agendaLocal">
+
+            <ion-card-header>
+                <b>OS: {{ os.os.NUMOS }}/{{ os.os.NUMITEM }}</b>
+            </ion-card-header>
+
+            <ion-card-content>
+                <p><b>Empresa : </b> {{ os.os.NOMEFANTASIA }}</p>
+                <p><b>Cliente : </b> {{ os.os.NOMEPARC }}</p>
+                <p><b>Série : </b> {{ os.os.SERIE }}</p>
+                <p *ngIf="os.os.AD_PATRIMONIO"><b>Patrimônio : </b> {{ os.os.AD_PATRIMONIO }}</p>
+                <p><b>Dt. Limite : </b> {{ os.os.DTPREVISTA }}</p>
+                <p><b>Endereço : </b>{{ os.os.ENDMAQUINA }}</p>
+                <p><b>Descrição : </b> {{ os.os.DESCRICAO }}</p>
+            </ion-card-content>
+
+            <ion-col text-right>
+                <button ion-button clear small color="primary" (click)="abrirInfoOS(os.os)" icon-start>
+                    <ion-icon name='ios-open'></ion-icon>
+                    Enviar OS
+                </button>
+            </ion-col>
+
+        </ion-card>
+    </div>
+    <!-- ## Card para OS's pendentes -->
+
+    <!-- ## Card para Os's pendentes vazia -->
+    <ion-card *ngIf="agendaLocal && agendaLocal==''" text-wrap>
+        <ion-card-header>
+            Nenhuma OS pendentes encontrada.
+        </ion-card-header>
+    </ion-card>
+    <!-- ## Fim Card para Os's pendentes vazia -->
+
+</ion-content>

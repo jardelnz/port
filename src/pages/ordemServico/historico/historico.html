@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Histórico da Série
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4>Digite a série que deseja pesquisar o histórico:</h4>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Série</ion-label>
+      <ion-input type="text" [(ngModel)]="serie"></ion-input>
+    </ion-item>
+
+    <button ion-button block outline color="primary" (click)="retornarHistorico()">
+      Pesquisar
+    </button>
+
+    <ion-card *ngFor="let os of historico">
+      <ion-card-header>
+        <b>OS : {{ os.NUMOS }}/{{ os.NUMITEM }}</b>
+      </ion-card-header>
+      <ion-card-content>
+        <p><b>Cliente : </b> {{ os.NOMEPARC }}</p>
+        <p><b>Departamento : </b> {{ os.DEPARTAMENTO }}</p>
+        <p><b>Modelo : </b> {{ os.DESCRPROD }}</p>
+        <p><b>Dt. Execução : </b>{{ os.TERMEXEC }}</p>
+        <p><b>Executante : </b> {{ os.NOMEUSU }}</p>
+        <p><b>Solução : </b> {{ os.SOLUCAO }}</p>
+        <p><b>Contador PB : </b> {{ os.AD_MEDPB }}</p>
+        <p><b>Contador COR : </b> {{ os.AD_MEDCOR }}</p>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>

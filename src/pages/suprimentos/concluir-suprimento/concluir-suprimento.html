@@ -1,0 +1,126 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Finalizar Entrega</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <!-- DATA E HORA -->
+    <ion-item-divider color="light">
+        <ion-label>
+            Informações do pedido
+        </ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+        <ion-label>Data do Atendimento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataExecucao" cancelText="Cancelar" doneText="OK">
+        </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Hora</ion-label>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora" cancelText="Cancelar" doneText="OK"></ion-datetime>
+    </ion-item>
+
+    <ion-item *ngIf="grupoUsuario == 7">
+        <ion-label>Entregador</ion-label>
+        <ion-select multiple="false" [(ngModel)]="entregador">
+            <ion-option *ngFor="let entregador of entregadores" [value]="entregador.CODUSU">{{entregador.NOMEUSU}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <!-- #FIM DATA E HORA -->
+
+
+    <!-- CONTADORES -->
+    <div *ngIf="!naoRealizada">
+        <br>
+        <div *ngIf="grupoUsuario == 5">
+            <ion-item-divider color="light">
+                <ion-label>
+                    Informações dos contadores
+                </ion-label>
+            </ion-item-divider>
+
+            <ion-item>
+                <ion-label>Contador PB</ion-label>
+                <ion-input type="number" inputmode="numeric" min="0" [(ngModel)]="medpb"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Contador COR</ion-label>
+                <ion-input type="number" inputmode="numeric" min="0" [(ngModel)]="medcor"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Contador Duplex</ion-label>
+                <ion-input type="number" inputmode="numeric" min="0" [(ngModel)]="duplex"></ion-input>
+            </ion-item>
+        </div>
+    </div>
+    <!-- #FIM CONTADORES -->
+
+    <br>
+
+    <!-- RESPONSÁVEL PELO RECEBIMENTO -->
+    <ion-item-divider color="light">
+        <ion-label>
+            Informações do cliente
+        </ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="responsavel" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label stacked>CPF/Matrícula</ion-label>
+        <ion-input type="number" [(ngModel)]="matricula"></ion-input>
+    </ion-item>
+    <!-- #FIM RESPONSÁVEL PELO RECEBIMENTO -->
+
+    <br>
+
+    <!-- DADOS DA ENTREGAS -->
+    <ion-item-divider color="light">
+        <ion-label>
+            Informações da entrega
+        </ion-label>
+    </ion-item-divider>
+    <ion-item>
+        <ion-label stacked>Itens recolhidos</ion-label>
+        <ion-textarea placeholder="Informe os itens recolhidos" [(ngModel)]="itensRecolhidos"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+        <ion-label stacked>Ocorrência</ion-label>
+        <ion-textarea placeholder="Descreva a ocorrência" [(ngModel)]="ocorrencia"></ion-textarea>
+    </ion-item>
+    <!-- #FIM DADOS DA ENTREGA -->
+
+    <br><br>
+
+    <!-- CAMERA FOTO ANTES DO ATENDIMENTO -->
+    <button (click)="tiraFoto()" class="btn-tirar-foto" ion-button icon-end round [disabled]="controleCamera">
+        Foto do pedido assinado
+        <ion-icon name="camera"></ion-icon>
+    </button>
+    <img [src]="photo" *ngIf="photo" width="300" height="300">
+    <!-- #FIM CAMERA -->
+
+    <br><br><br>
+
+    <div *ngIf="!naoRealizada">
+        <button ion-button full color="secondary" (click)="finalizarEntrega('E')">
+            Pedido entregue
+        </button>
+    </div>
+
+    <button ion-button full color="dark" (click)="finalizarEntrega('C')">
+        Não foi possível entregar o pedido
+    </button>
+
+</ion-content>

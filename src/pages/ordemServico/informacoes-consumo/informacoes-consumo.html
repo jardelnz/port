@@ -1,0 +1,42 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Informe o consumo</ion-title>
+    </ion-navbar>
+
+    <ion-fab mini top right>
+        <button ion-fab (click)="avancaCadastro(listagem)">
+            <ion-icon name="arrow-dropright"></ion-icon>
+        </button>
+    </ion-fab>
+
+</ion-header>
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-list-header lines="inset" color="black" text-wrap>
+            <ion-label>Selecione o produto do seu estoque e informe a quantidade: </ion-label>
+        </ion-list-header>
+
+        <ion-item *ngFor="let lista of listagem" text-wrap>
+
+            <ion-label text-wrap>
+                <b>Refforn: </b> {{ lista.REFFORN + ' - ' + lista.DESCRPROD}}
+                <br>
+                <b>Disponível: </b> {{ lista.TOTAL }}
+            </ion-label>
+
+            <ion-input inputmode="numeric" type="number" value="" max="{{lista.TOTAL}}" min="0"
+                [(ngModel)]="lista.quantidade"></ion-input>
+
+            <!-- <ion-badge color="tertiary" item-end>
+                <ion-icon name="cube"></ion-icon> {{ lista.TOTAL }}
+            </ion-badge> -->
+
+            <ion-toggle slot="end" [(ngModel)]="lista.selecionado"></ion-toggle>
+        </ion-item>
+    </ion-list>
+
+
+</ion-content>

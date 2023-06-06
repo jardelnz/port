@@ -1,0 +1,27 @@
+ page-concluir-os {
+     $checkbox-md-icon-size: 8px;
+     $checkbox-md-item-start-margin-start: 2px;
+     .label-checkbox {
+         font-size: 14px;
+     }
+     .btnActionSheet {
+         text-align: center;
+         color: red;
+     }
+ }
+ 
+ .alert-ios .alert-radio-label {
+     white-space: pre-line;
+ }
+ 
+ .alert-md .alert-radio-label {
+     white-space: pre-line;
+ }
+ 
+ .alert-wp .alert-radio-label {
+     white-space: pre-line;
+ }
+ 
+ .select-text {
+     white-space: pre-line;
+ }

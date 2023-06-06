@@ -1,0 +1,84 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Informações da OS</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <p>
+        <ion-col text-right>
+            <button ion-button clear small color="danger" (click)="voltarParaAgenda()" icon-start>
+                <ion-icon name='arrow-round-back'></ion-icon>
+                Voltar para Agenda
+            </button>
+        </ion-col>
+    </p>
+
+    <ion-card>
+
+        <ion-card-header>
+            <b>OS: {{ os.NUMOS }}/{{ os.NUMITEM }}</b>
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <p><b>Cliente : </b> {{ os.NOMEPARC }}</p>
+            <p><b>Série : </b> {{ os.SERIE }}</p>
+            <p><b>Modelo : </b> {{ os.DESCRPROD }}</p>
+            <p><b>Departamento : </b> {{ os.AD_DEPARTAMENTO }}</p>
+            <p><b>Contato : </b> {{ os.NOMECONTATO }}</p>
+            <p><b>Telefone : </b><a href="tel:{{os.TELEFONE}}"> {{ os.TELEFONE }}</a></p>
+            <p *ngIf="os.AD_SOFTINTEGRADO"><b>Software de contabilização : </b> {{os.AD_SOFTINTEGRADO}} </p>
+            <p *ngIf="os.ATRASADA">
+                <ion-label color="danger">
+                    <ion-icon color="danger" name="alert" item-start></ion-icon> Data da última leitura : {{os.AD_DTULTIMALEITURAC}}
+                </ion-label>
+            </p>
+            <p><b>Data de agendamento : </b> {{ os.DHPREVISTA }}</p>
+            <p><b>Endereço : </b>{{ os.ENDMAQUINA }}</p>
+            <p><b>Descrição : </b> {{ os.DESCRICAO }}</p>
+            <p *ngIf="offline == true"><b>Modo Off-line</b></p>
+
+        </ion-card-content>
+
+        <p *ngIf="offline == false">
+            <ion-col text-right>
+                <button ion-button clear small color="primary" (click)="abrirHistoricoOS()" icon-start>
+                    <ion-icon name='information-circle'></ion-icon>
+                    Histórico da Série
+                </button>
+            </ion-col>
+        </p>
+
+        <p *ngIf="offline == false">
+            <ion-col text-right>
+                <button ion-button clear small color="primary" (click)="criarRota()" icon-start>
+                    <ion-icon name='ios-navigate'></ion-icon>
+                    Traçar rota
+                </button>
+            </ion-col>
+        </p>
+
+        <p>
+            <ion-col text-right>
+                <button ion-button clear small color="danger" (click)="atendimentoNaoRealizado(os)" icon-start>
+                    <ion-icon name='ios-alert'></ion-icon>
+                    Atendimento não realizado
+                </button>
+            </ion-col>
+        </p>
+
+        <p>
+            <ion-col text-right>
+                <button ion-button clear small color="primary" (click)="abrirAtenderOS(os)" icon-start>
+                    <ion-icon name='ios-open'></ion-icon>
+                    Concluir Atendimento
+                </button>
+            </ion-col>
+        </p>
+
+    </ion-card>
+
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Itens para recebimento</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card *ngFor="let linha of linhas" text-wrap>
+        <ion-card-header text-wrap>
+            <h1>{{ linha.DESCRPROD }}</h1>
+            <h1><b>Quantidade para recebimento:</b> {{linha.QTDNEG}} </h1>
+        </ion-card-header>
+        <ion-card-content>
+
+            <p><b>Código:</b> {{linha.CODPROD}}</p>
+            <p><b>Ref. do Fornecedor:</b> {{linha.REFFORN}}</p>
+        </ion-card-content>
+    </ion-card>
+
+    <button ion-button full color="secondary" (click)="receberItens(linha)">Receber Itens</button>
+
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Sobre o Aplicativo</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h3>Versão: 1.7.8.1</h3>
+
+    <ion-content padding>
+        Informações do dispositivo:
+
+        <form padding [formGroup]="formgroup" (submit)="enviarForm()" novalidate>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Código: </ion-label>
+                    <ion-input type="text" formControlName="imei"></ion-input>
+                </ion-item>
+                <button ion-button block outline color="primary" class="login-button" round>Atualizar Chave de Acesso</button>
+            </ion-list>
+        </form>
+
+        <p>Chave : {{token}}</p>
+        <p>Usuário : {{usuario}}</p>
+        <p>Código : {{codusu}}</p>
+        <p>Estoque : {{estoqueVolante}}</p>
+        <p>Grupo : {{grupo}}</p>
+        <p>Server : {{server}}</p>
+
+    </ion-content>
+
+</ion-content>
